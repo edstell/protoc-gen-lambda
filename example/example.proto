@@ -1,0 +1,16 @@
+syntax = "proto3";
+package exampleproto;
+
+option go_package = "github.com/edstell/protoc-gen-lambda/example;exampleproto";
+
+service Service {
+    rpc Do (DoRequest) returns (DoResponse);
+}
+
+message DoRequest {
+    string id = 1;
+}
+
+message DoResponse {
+    bool success = 1;
+}
