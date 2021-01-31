@@ -3,7 +3,7 @@ package generator
 import (
 	"bytes"
 	"fmt"
-	"strings"
+	"path"
 	"text/template"
 
 	google_protobuf "github.com/golang/protobuf/protoc-gen-go/descriptor"
@@ -14,7 +14,8 @@ import (
 // template passed, naming the output with the suffix.
 func FromTemplate(suffix string, t *template.Template) Generator {
 	return GeneratorFunc(func(desc *google_protobuf.FileDescriptorProto) (*plugin.CodeGeneratorResponse_File, error) {
-		name := strings.ReplaceAll(*desc.Name, ".proto", fmt.Sprintf(".%s.pb.go", suffix))
+		filepath := *desc.Name
+		name := filepath[0:len(filepath)-len(path.Ext(filepath))] + fmt.Sprintf(".%s.pb.go", suffix)
 		var b bytes.Buffer
 		if err := t.Execute(&b, desc); err != nil {
 			return nil, err
