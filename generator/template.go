@@ -3,8 +3,8 @@ package generator
 import (
 	"bytes"
 	"fmt"
-	"html/template"
 	"path"
+	"text/template"
 
 	"github.com/edstell/protoc-gen-lambda/templates"
 	google_protobuf "github.com/golang/protobuf/protoc-gen-go/descriptor"
@@ -22,7 +22,7 @@ func FromTemplate(name string, funcs map[string]interface{}) Generator {
 	}
 	return GeneratorFunc(func(desc *google_protobuf.FileDescriptorProto) (*plugin.CodeGeneratorResponse_File, error) {
 		filepath := *desc.Name
-		name := filepath[0:len(filepath)-len(path.Ext(filepath))] + fmt.Sprintf(".%s.go", name)
+		name := filepath[0:len(filepath)-len(path.Ext(filepath))] + fmt.Sprintf(".%s.pb.go", name)
 		var b bytes.Buffer
 		if err := t.Execute(&b, desc); err != nil {
 			return nil, err
