@@ -27,7 +27,7 @@ Configure the receiving lambda function to route requests like so:
 // handler should be your concrete implementation.
 var handler handlerproto.Handler
 // marshaler should marshal your error implementation to json bytes.
-var marshaler func(error) ([]byte, error)
+var marshaler func(error) (json.RawMessage, error)
 router := exampleproto.NewRouter(handler, marshaler)
 lambda.Start(router.Handle)
 ```
@@ -37,7 +37,7 @@ Configure client the the calling lambda function like so:
 ```
 // unmarshaler should unmarshal json bytes to your error implementation.
 var unmarshaler func(json.RawMessage) error
-example := exampleproto.NewClient(lambda.Service, "example-arn", unmarshaler)
+example := exampleproto.NewClient(lambda.New(session), "example-arn", unmarshaler)
 // Call the 'Do' procedure in the lambda function:
 rsp, err := example.Do(ctx, &exampleproto.DoRequest{
 	Id: "the-thing",

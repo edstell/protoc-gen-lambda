@@ -9,8 +9,8 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/edstell/lambda-invoker v1.1.0 h1:JgLQC2q7QvkmQBGkU/SQaFAIo68Bfb1H8uhSc2HNRyU=
 github.com/edstell/lambda-invoker v1.1.0/go.mod h1:1zQwEDJKC70glrq+saMjP+C/FxnoZwE0zIb5nyM36AM=
 github.com/edstell/lambda-router v1.0.0/go.mod h1:xZVIJmCOWUyKzq678aOT1trtW0PaNgVoeqaM1NOxGZs=
-github.com/edstell/lambda-router v1.0.1 h1:qaFxqwTO6Lq3gZgJ+zaHL6GPt/Cpvd0kct9tdOVWw1E=
-github.com/edstell/lambda-router v1.0.1/go.mod h1:xZVIJmCOWUyKzq678aOT1trtW0PaNgVoeqaM1NOxGZs=
+github.com/edstell/lambda-router v1.0.2 h1:SgMGuUy+bDljT30/Rxc8gLFOmMU88isNxk50ohzSG54=
+github.com/edstell/lambda-router v1.0.2/go.mod h1:xZVIJmCOWUyKzq678aOT1trtW0PaNgVoeqaM1NOxGZs=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=

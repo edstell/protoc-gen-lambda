@@ -29,7 +29,7 @@ type Router struct {
 
 // NewRouter initializes a router which will route requests to the handler
 // provided. It will use the marshaler provided to pack errors for transport.
-func NewRouter(handler Handler, marshaler func(error) ([]byte, error)) *Router {
+func NewRouter(handler Handler, marshaler func(error) (json.RawMessage, error)) *Router {
 	router := router.New(router.MarshalErrorsWith(marshaler))
 	router.Route("Do", do(handler.Do))
 	return &Router{

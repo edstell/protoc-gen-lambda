@@ -3,26 +3,18 @@ package generator
 import (
 	"bytes"
 	"fmt"
-	"path"
+	"strings"
 	"text/template"
 
-	"github.com/edstell/protoc-gen-lambda/templates"
 	google_protobuf "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 )
 
-func FromTemplate(name string, funcs map[string]interface{}) Generator {
-	data, err := templates.Asset(fmt.Sprintf("%s.gotmpl", name))
-	if err != nil {
-		panic(err)
-	}
-	t, err := template.New(name).Funcs(funcs).Parse(string(data))
-	if err != nil {
-		panic(err)
-	}
+// FromTemplate returns a Generator that generates an output file from the
+// template passed, naming the output with the suffix.
+func FromTemplate(suffix string, t *template.Template) Generator {
 	return GeneratorFunc(func(desc *google_protobuf.FileDescriptorProto) (*plugin.CodeGeneratorResponse_File, error) {
-		filepath := *desc.Name
-		name := filepath[0:len(filepath)-len(path.Ext(filepath))] + fmt.Sprintf(".%s.pb.go", name)
+		name := strings.ReplaceAll(*desc.Name, ".proto", fmt.Sprintf(".%s.pb.go", suffix))
 		var b bytes.Buffer
 		if err := t.Execute(&b, desc); err != nil {
 			return nil, err

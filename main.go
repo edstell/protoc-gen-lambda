@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/edstell/protoc-gen-lambda/generator"
+	"github.com/edstell/protoc-gen-lambda/template"
 	"github.com/golang/protobuf/proto"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 )
@@ -27,17 +28,18 @@ func main() {
 			return ss[len(ss)-1]
 		},
 	}
-	generators := []generator.Generator{
-		generator.FromTemplate("router", funcs),
-		generator.FromTemplate("client", funcs),
-	}
-	files := make([]*plugin.CodeGeneratorResponse_File, 0, len(req.ProtoFile)*len(generators))
+	names := []string{"client", "router"}
+	files := make([]*plugin.CodeGeneratorResponse_File, 0, len(req.ProtoFile)*len(names))
 	for _, protoFile := range req.ProtoFile {
 		if len(protoFile.Service) == 0 {
 			continue
 		}
-		for _, generator := range generators {
-			file, err := generator.Generate(protoFile)
+		for _, name := range names {
+			template, err := template.FromAsset(name, funcs)
+			if err != nil {
+				panic(err)
+			}
+			file, err := generator.FromTemplate(name, template).Generate(protoFile)
 			if err != nil {
 				panic(fmt.Sprint("failed to generate file", err))
 			}
