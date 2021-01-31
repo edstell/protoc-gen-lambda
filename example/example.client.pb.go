@@ -1,4 +1,4 @@
-// DO NOT EDIT: Client was generate from 'example.proto'
+// DO NOT EDIT: Client was generated from 'example.proto'
 package exampleproto
 
 import (
