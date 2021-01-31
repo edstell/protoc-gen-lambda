@@ -34,6 +34,9 @@ func main() {
 		if len(protoFile.Service) == 0 {
 			continue
 		}
+		if !contains(req.FileToGenerate, *protoFile.Name) {
+			continue
+		}
 		for _, name := range names {
 			template, err := template.FromAsset(name, funcs)
 			if err != nil {
@@ -53,4 +56,13 @@ func main() {
 		panic(err)
 	}
 	os.Stdout.Write(data)
+}
+
+func contains(strs []string, str string) bool {
+	for _, s := range strs {
+		if s == str {
+			return true
+		}
+	}
+	return false
 }
